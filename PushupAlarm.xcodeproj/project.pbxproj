@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0002AF7C9AEABC9C97C2D78A /* OpenChallengeIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC047B3D9CBB4DF0643D277 /* OpenChallengeIntent.swift */; };
+		13A516C214754F96DEE94FAF /* ChallengeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 55207C9479934AB695A4967B /* ChallengeCore */; };
+		1DB9FAAF25B56BB09E0AD078 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA381BD27D3D15B8519F60BF /* ChallengeView.swift */; };
+		2DF1F19D28299ACDEF339658 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF075229F2E2E093E1847E5 /* CameraPreview.swift */; };
+		3F09CC2125CAC85F65DFBB23 /* PosePipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905746D5642709E135DE3CA0 /* PosePipeline.swift */; };
+		59098AB792369A760E05997D /* AlarmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483DD9AFEE71EA0768BD013B /* AlarmCoordinator.swift */; };
+		83B71F858F98C9BE7998B762 /* PushupAlarmWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		867E313587CAA270ACEFF2F2 /* PushupAlarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675164F4BC681ACB49568B41 /* PushupAlarmApp.swift */; };
+		8B6A8FB135E8EA81F8D2CECC /* ChallengeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB00B32344E2A13BE1A410 /* ChallengeRouter.swift */; };
+		908469368AB91419E6D5EBD8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B1A6946A115F88CF6DEC24 /* HistoryView.swift */; };
+		940429071C54CAA50E01B387 /* AlarmEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9A64F78A31C6E523C8DE0 /* AlarmEditorView.swift */; };
+		9D38A52B7367389558A506EB /* SkeletonOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9800108FE9FE2725DADFB2 /* SkeletonOverlay.swift */; };
+		A3C4A35F93E8D5F177B3C2F5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748E2344B7D27C271B02C97C /* SettingsView.swift */; };
+		A509ADC09550DA354C7B75ED /* ChallengeLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34726CE9683A2DCA4860BD63 /* ChallengeLiveActivity.swift */; };
+		AB616065FB00A0D2A30B71C4 /* PushupAlarmWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7234D8CD2F66C19BD975F2B1 /* PushupAlarmWidgetBundle.swift */; };
+		AB929BD64317D1486EF8C2A4 /* DataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610CAEB1AD08DF2FD0D4F243 /* DataModels.swift */; };
+		AF7E458839128F08811357A4 /* AlarmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B0ECAB2C8B5D6D958298DD /* AlarmListView.swift */; };
+		B44B1B1AB78F5B943C57FE15 /* AlarmKitScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF01FB9FA729BB38C279429 /* AlarmKitScheduler.swift */; };
+		BDF975A39DA6443CFB079DB6 /* LocalNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF29B5813467C4F81D503A0 /* LocalNotificationScheduler.swift */; };
+		BEB4546B07B2508864A2CF07 /* PoseMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70982D9EBF72AA600014BE75 /* PoseMapping.swift */; };
+		C0AB8603C6A63F60237AD809 /* AlarmScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB561925F22AF10D39F62935 /* AlarmScheduling.swift */; };
+		C2EE3AA06865956A7FF8B14E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B3E3A180F92FC94261995F /* RootView.swift */; };
+		E500204FA89A636ADECD2941 /* ChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB740832524235BC24867A3 /* ChallengeModel.swift */; };
+		F38239EDACEF826F5E8F91EA /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43D6524DAC2F1C2147CAEB5 /* AppGroup.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		12BE212029C1C090FC4F4B7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5EAB9E36C51428523CDAE83D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1AD236ECB2BB5E64E390A8AF;
+			remoteInfo = PushupAlarmWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9F44863CD46BA2849D51B79B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				83B71F858F98C9BE7998B762 /* PushupAlarmWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05B1A6946A115F88CF6DEC24 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		0D9800108FE9FE2725DADFB2 /* SkeletonOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonOverlay.swift; sourceTree = "<group>"; };
+		0DB740832524235BC24867A3 /* ChallengeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeModel.swift; sourceTree = "<group>"; };
+		0EF075229F2E2E093E1847E5 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		0FC047B3D9CBB4DF0643D277 /* OpenChallengeIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenChallengeIntent.swift; sourceTree = "<group>"; };
+		13CA402452B8FA4851AAE50D /* PushupAlarmWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushupAlarmWidget.entitlements; sourceTree = "<group>"; };
+		34726CE9683A2DCA4860BD63 /* ChallengeLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeLiveActivity.swift; sourceTree = "<group>"; };
+		483DD9AFEE71EA0768BD013B /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
+		4BABDCCD9A8EDED40A2F063B /* PushupAlarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushupAlarm.entitlements; sourceTree = "<group>"; };
+		4E4936F90EA06978DD78A065 /* PushupAlarm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PushupAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CA2E96C2D48C431674D5849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		610CAEB1AD08DF2FD0D4F243 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
+		675164F4BC681ACB49568B41 /* PushupAlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupAlarmApp.swift; sourceTree = "<group>"; };
+		70982D9EBF72AA600014BE75 /* PoseMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseMapping.swift; sourceTree = "<group>"; };
+		7234D8CD2F66C19BD975F2B1 /* PushupAlarmWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupAlarmWidgetBundle.swift; sourceTree = "<group>"; };
+		748E2344B7D27C271B02C97C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = PushupAlarmWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FF29B5813467C4F81D503A0 /* LocalNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationScheduler.swift; sourceTree = "<group>"; };
+		905746D5642709E135DE3CA0 /* PosePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePipeline.swift; sourceTree = "<group>"; };
+		A6B0ECAB2C8B5D6D958298DD /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
+		B3B3E3A180F92FC94261995F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		BDF01FB9FA729BB38C279429 /* AlarmKitScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmKitScheduler.swift; sourceTree = "<group>"; };
+		C2240739A8FA7D3EC4ED0D4A /* ChallengeCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ChallengeCore; path = ChallengeCore; sourceTree = SOURCE_ROOT; };
+		C3A9A64F78A31C6E523C8DE0 /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
+		C9EB00B32344E2A13BE1A410 /* ChallengeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRouter.swift; sourceTree = "<group>"; };
+		CA381BD27D3D15B8519F60BF /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
+		F43D6524DAC2F1C2147CAEB5 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		FB561925F22AF10D39F62935 /* AlarmScheduling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmScheduling.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3B1813E231E00F8757EB50E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13A516C214754F96DEE94FAF /* ChallengeCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DB1FEAF7F5993CECF7B4929 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3A9A64F78A31C6E523C8DE0 /* AlarmEditorView.swift */,
+				A6B0ECAB2C8B5D6D958298DD /* AlarmListView.swift */,
+				CA381BD27D3D15B8519F60BF /* ChallengeView.swift */,
+				05B1A6946A115F88CF6DEC24 /* HistoryView.swift */,
+				B3B3E3A180F92FC94261995F /* RootView.swift */,
+				748E2344B7D27C271B02C97C /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4B83E969EC3A4FAC021C1F3D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				610CAEB1AD08DF2FD0D4F243 /* DataModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5DD975C358367DC8E6136137 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				0DB740832524235BC24867A3 /* ChallengeModel.swift */,
+				0D9800108FE9FE2725DADFB2 /* SkeletonOverlay.swift */,
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		730E8C525733501158D3EEA3 /* Pose */ = {
+			isa = PBXGroup;
+			children = (
+				0EF075229F2E2E093E1847E5 /* CameraPreview.swift */,
+				70982D9EBF72AA600014BE75 /* PoseMapping.swift */,
+				905746D5642709E135DE3CA0 /* PosePipeline.swift */,
+			);
+			path = Pose;
+			sourceTree = "<group>";
+		};
+		75FD0CD529542327C8DA0B36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4E4936F90EA06978DD78A065 /* PushupAlarm.app */,
+				7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7ACD634EE132C92D2C1BD08B = {
+			isa = PBXGroup;
+			children = (
+				EBB81A7BF389194EEA63F4A7 /* Packages */,
+				E3751BDF6DE2ADB15ED2D258 /* PushupAlarm */,
+				AF967B2B330E2707894AA0BD /* PushupAlarmWidget */,
+				75FD0CD529542327C8DA0B36 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9286DE53A25BDE420020C194 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F43D6524DAC2F1C2147CAEB5 /* AppGroup.swift */,
+				C9EB00B32344E2A13BE1A410 /* ChallengeRouter.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A0C1C8AF58328E78DF720725 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				675164F4BC681ACB49568B41 /* PushupAlarmApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AF967B2B330E2707894AA0BD /* PushupAlarmWidget */ = {
+			isa = PBXGroup;
+			children = (
+				34726CE9683A2DCA4860BD63 /* ChallengeLiveActivity.swift */,
+				5CA2E96C2D48C431674D5849 /* Info.plist */,
+				13CA402452B8FA4851AAE50D /* PushupAlarmWidget.entitlements */,
+				7234D8CD2F66C19BD975F2B1 /* PushupAlarmWidgetBundle.swift */,
+			);
+			path = PushupAlarmWidget;
+			sourceTree = "<group>";
+		};
+		E3751BDF6DE2ADB15ED2D258 /* PushupAlarm */ = {
+			isa = PBXGroup;
+			children = (
+				FF35C7953FE889CB92F9D9D9 /* Alarm */,
+				A0C1C8AF58328E78DF720725 /* App */,
+				5DD975C358367DC8E6136137 /* Challenge */,
+				4B83E969EC3A4FAC021C1F3D /* Models */,
+				730E8C525733501158D3EEA3 /* Pose */,
+				9286DE53A25BDE420020C194 /* Shared */,
+				0DB1FEAF7F5993CECF7B4929 /* Views */,
+				4BABDCCD9A8EDED40A2F063B /* PushupAlarm.entitlements */,
+			);
+			path = PushupAlarm;
+			sourceTree = "<group>";
+		};
+		EBB81A7BF389194EEA63F4A7 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				C2240739A8FA7D3EC4ED0D4A /* ChallengeCore */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		FF35C7953FE889CB92F9D9D9 /* Alarm */ = {
+			isa = PBXGroup;
+			children = (
+				483DD9AFEE71EA0768BD013B /* AlarmCoordinator.swift */,
+				BDF01FB9FA729BB38C279429 /* AlarmKitScheduler.swift */,
+				FB561925F22AF10D39F62935 /* AlarmScheduling.swift */,
+				8FF29B5813467C4F81D503A0 /* LocalNotificationScheduler.swift */,
+				0FC047B3D9CBB4DF0643D277 /* OpenChallengeIntent.swift */,
+			);
+			path = Alarm;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1AD236ECB2BB5E64E390A8AF /* PushupAlarmWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C402ADD9D8EE80B2FD87549 /* Build configuration list for PBXNativeTarget "PushupAlarmWidget" */;
+			buildPhases = (
+				F411C29EC628485D645E31AD /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushupAlarmWidget;
+			packageProductDependencies = (
+			);
+			productName = PushupAlarmWidget;
+			productReference = 7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		65480BC9FDC80CAFFC0ED4CE /* PushupAlarm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46F53887F509FD97E254016C /* Build configuration list for PBXNativeTarget "PushupAlarm" */;
+			buildPhases = (
+				AA56C5005217D3D192343CC5 /* Sources */,
+				3B1813E231E00F8757EB50E1 /* Frameworks */,
+				9F44863CD46BA2849D51B79B /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6FB077DD52401A3F21D0FA95 /* PBXTargetDependency */,
+			);
+			name = PushupAlarm;
+			packageProductDependencies = (
+				55207C9479934AB695A4967B /* ChallengeCore */,
+			);
+			productName = PushupAlarm;
+			productReference = 4E4936F90EA06978DD78A065 /* PushupAlarm.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5EAB9E36C51428523CDAE83D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1AD236ECB2BB5E64E390A8AF = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					65480BC9FDC80CAFFC0ED4CE = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2BD3F8703157C52767B067DF /* Build configuration list for PBXProject "PushupAlarm" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 7ACD634EE132C92D2C1BD08B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				64DF98C9CF16365825F06C7B /* XCLocalSwiftPackageReference "ChallengeCore" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 75FD0CD529542327C8DA0B36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65480BC9FDC80CAFFC0ED4CE /* PushupAlarm */,
+				1AD236ECB2BB5E64E390A8AF /* PushupAlarmWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA56C5005217D3D192343CC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59098AB792369A760E05997D /* AlarmCoordinator.swift in Sources */,
+				940429071C54CAA50E01B387 /* AlarmEditorView.swift in Sources */,
+				B44B1B1AB78F5B943C57FE15 /* AlarmKitScheduler.swift in Sources */,
+				AF7E458839128F08811357A4 /* AlarmListView.swift in Sources */,
+				C0AB8603C6A63F60237AD809 /* AlarmScheduling.swift in Sources */,
+				F38239EDACEF826F5E8F91EA /* AppGroup.swift in Sources */,
+				2DF1F19D28299ACDEF339658 /* CameraPreview.swift in Sources */,
+				E500204FA89A636ADECD2941 /* ChallengeModel.swift in Sources */,
+				8B6A8FB135E8EA81F8D2CECC /* ChallengeRouter.swift in Sources */,
+				1DB9FAAF25B56BB09E0AD078 /* ChallengeView.swift in Sources */,
+				AB929BD64317D1486EF8C2A4 /* DataModels.swift in Sources */,
+				908469368AB91419E6D5EBD8 /* HistoryView.swift in Sources */,
+				BDF975A39DA6443CFB079DB6 /* LocalNotificationScheduler.swift in Sources */,
+				0002AF7C9AEABC9C97C2D78A /* OpenChallengeIntent.swift in Sources */,
+				BEB4546B07B2508864A2CF07 /* PoseMapping.swift in Sources */,
+				3F09CC2125CAC85F65DFBB23 /* PosePipeline.swift in Sources */,
+				867E313587CAA270ACEFF2F2 /* PushupAlarmApp.swift in Sources */,
+				C2EE3AA06865956A7FF8B14E /* RootView.swift in Sources */,
+				A3C4A35F93E8D5F177B3C2F5 /* SettingsView.swift in Sources */,
+				9D38A52B7367389558A506EB /* SkeletonOverlay.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F411C29EC628485D645E31AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A509ADC09550DA354C7B75ED /* ChallengeLiveActivity.swift in Sources */,
+				AB616065FB00A0D2A30B71C4 /* PushupAlarmWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FB077DD52401A3F21D0FA95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1AD236ECB2BB5E64E390A8AF /* PushupAlarmWidget */;
+			targetProxy = 12BE212029C1C090FC4F4B7B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D2C478F89D9D0AABD8FE2AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pushup Alarm";
+				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Pushup Alarm needs alarm access so your wake-up rings through Silent and Focus until you finish your pushups.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Pushup Alarm uses the camera on-device to count your pushups. Video is processed live and never leaves your phone.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wakeupcall.pushupalarm;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3A1E92D7F4C481A4DCB2E2E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pushup Alarm";
+				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Pushup Alarm needs alarm access so your wake-up rings through Silent and Focus until you finish your pushups.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Pushup Alarm uses the camera on-device to count your pushups. Video is processed live and never leaves your phone.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wakeupcall.pushupalarm;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6AC107DBFBD9FB079F7C7C54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PushupAlarmWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wakeupcall.pushupalarm.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C2CBF872F0AEE9C129673D1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		D33E434EB00847A9EC92D714 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		FF637925DD520450FB69CD4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PushupAlarmWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.wakeupcall.pushupalarm.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BD3F8703157C52767B067DF /* Build configuration list for PBXProject "PushupAlarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D33E434EB00847A9EC92D714 /* Debug */,
+				C2CBF872F0AEE9C129673D1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		46F53887F509FD97E254016C /* Build configuration list for PBXNativeTarget "PushupAlarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D2C478F89D9D0AABD8FE2AB /* Debug */,
+				3A1E92D7F4C481A4DCB2E2E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4C402ADD9D8EE80B2FD87549 /* Build configuration list for PBXNativeTarget "PushupAlarmWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF637925DD520450FB69CD4C /* Debug */,
+				6AC107DBFBD9FB079F7C7C54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		64DF98C9CF16365825F06C7B /* XCLocalSwiftPackageReference "ChallengeCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ChallengeCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		55207C9479934AB695A4967B /* ChallengeCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ChallengeCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 5EAB9E36C51428523CDAE83D /* Project object */;
+}

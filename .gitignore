@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Xcode / Swift build artifacts
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad
+xcuserdata/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# XcodeGen generates the project from project.yml. It's committed for
+# convenience, but per-user state inside it is not.
+PushupAlarm.xcodeproj/xcuserdata/
+PushupAlarm.xcodeproj/project.xcworkspace/xcuserdata/

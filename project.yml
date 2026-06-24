@@ -1,0 +1,71 @@
+name: PushupAlarm
+options:
+  bundleIdPrefix: com.wakeupcall
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+packages:
+  ChallengeCore:
+    path: ChallengeCore
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    # No paid Developer Program yet — keep automatic signing but allow the
+    # simulator build to skip signing entirely.
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  PushupAlarm:
+    type: application
+    platform: iOS
+    sources:
+      - path: PushupAlarm
+    dependencies:
+      - package: ChallengeCore
+      - target: PushupAlarmWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wakeupcall.pushupalarm
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Pushup Alarm
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_NSCameraUsageDescription: "Pushup Alarm uses the camera on-device to count your pushups. Video is processed live and never leaves your phone."
+        INFOPLIST_KEY_NSAlarmKitUsageDescription: "Pushup Alarm needs alarm access so your wake-up rings through Silent and Focus until you finish your pushups."
+        # Live Activities (AlarmKit presents via ActivityKit).
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
+    # NOTE: App Group entitlement intentionally omitted so the app signs &
+    # runs on a device with a free Apple ID. SharedState falls back to standard
+    # UserDefaults. Re-add the entitlement (see PushupAlarm.entitlements) once
+    # enrolled in the paid Developer Program to enable the AlarmKit cross-process
+    # path. To re-enable: add `entitlements: { path: PushupAlarm/PushupAlarm.entitlements }`.
+
+  PushupAlarmWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: PushupAlarmWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.wakeupcall.pushupalarm.widget
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: PushupAlarmWidget/Info.plist
+    # App Group entitlement omitted for free-account signing (see app target note).
+
+schemes:
+  PushupAlarm:
+    build:
+      targets:
+        PushupAlarm: all
+    run:
+      config: Debug
+    test:
+      config: Debug

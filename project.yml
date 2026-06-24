@@ -20,7 +20,7 @@ settings:
     # No paid Developer Program yet — keep automatic signing but allow the
     # simulator build to skip signing entirely.
     CODE_SIGN_STYLE: Automatic
-    DEVELOPMENT_TEAM: "7684T6LK27"
+    DEVELOPMENT_TEAM: "ZLX97654QK"
 
 targets:
   PushupAlarm:

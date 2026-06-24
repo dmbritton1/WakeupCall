@@ -67,20 +67,20 @@
 		34726CE9683A2DCA4860BD63 /* ChallengeLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeLiveActivity.swift; sourceTree = "<group>"; };
 		483DD9AFEE71EA0768BD013B /* AlarmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCoordinator.swift; sourceTree = "<group>"; };
 		4BABDCCD9A8EDED40A2F063B /* PushupAlarm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushupAlarm.entitlements; sourceTree = "<group>"; };
-		4E4936F90EA06978DD78A065 /* PushupAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushupAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4936F90EA06978DD78A065 /* PushupAlarm.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PushupAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA2E96C2D48C431674D5849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		610CAEB1AD08DF2FD0D4F243 /* DataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModels.swift; sourceTree = "<group>"; };
 		675164F4BC681ACB49568B41 /* PushupAlarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupAlarmApp.swift; sourceTree = "<group>"; };
 		70982D9EBF72AA600014BE75 /* PoseMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseMapping.swift; sourceTree = "<group>"; };
 		7234D8CD2F66C19BD975F2B1 /* PushupAlarmWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushupAlarmWidgetBundle.swift; sourceTree = "<group>"; };
 		748E2344B7D27C271B02C97C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PushupAlarmWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C335DF95A2EB4077EAA676B /* PushupAlarmWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = PushupAlarmWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FF29B5813467C4F81D503A0 /* LocalNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationScheduler.swift; sourceTree = "<group>"; };
 		905746D5642709E135DE3CA0 /* PosePipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosePipeline.swift; sourceTree = "<group>"; };
 		A6B0ECAB2C8B5D6D958298DD /* AlarmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListView.swift; sourceTree = "<group>"; };
 		B3B3E3A180F92FC94261995F /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BDF01FB9FA729BB38C279429 /* AlarmKitScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmKitScheduler.swift; sourceTree = "<group>"; };
-		C2240739A8FA7D3EC4ED0D4A /* ChallengeCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChallengeCore; sourceTree = SOURCE_ROOT; };
+		C2240739A8FA7D3EC4ED0D4A /* ChallengeCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ChallengeCore; path = ChallengeCore; sourceTree = SOURCE_ROOT; };
 		C3A9A64F78A31C6E523C8DE0 /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
 		C9EB00B32344E2A13BE1A410 /* ChallengeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRouter.swift; sourceTree = "<group>"; };
 		CA381BD27D3D15B8519F60BF /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
@@ -273,9 +273,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					1AD236ECB2BB5E64E390A8AF = {
+						DevelopmentTeam = ZLX97654QK;
 						ProvisioningStyle = Automatic;
 					};
 					65480BC9FDC80CAFFC0ED4CE = {
+						DevelopmentTeam = ZLX97654QK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -356,7 +358,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = ZLX97654QK;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pushup Alarm";
 				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Pushup Alarm needs alarm access so your wake-up rings through Silent and Focus until you finish your pushups.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Pushup Alarm uses the camera on-device to count your pushups. Video is processed live and never leaves your phone.";
@@ -379,7 +380,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = ZLX97654QK;
 				INFOPLIST_KEY_CFBundleDisplayName = "Pushup Alarm";
 				INFOPLIST_KEY_NSAlarmKitUsageDescription = "Pushup Alarm needs alarm access so your wake-up rings through Silent and Focus until you finish your pushups.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Pushup Alarm uses the camera on-device to count your pushups. Video is processed live and never leaves your phone.";
@@ -400,7 +400,6 @@
 		6AC107DBFBD9FB079F7C7C54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = ZLX97654QK;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PushupAlarmWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -451,7 +450,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 7684T6LK27;
+				DEVELOPMENT_TEAM = ZLX97654QK;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -513,7 +512,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 7684T6LK27;
+				DEVELOPMENT_TEAM = ZLX97654QK;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -548,7 +547,6 @@
 		FF637925DD520450FB69CD4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = ZLX97654QK;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = PushupAlarmWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -15,6 +15,7 @@ final class ChallengeModel {
     private(set) var reps = 0
     let target: Int
     private(set) var latestFrame: PoseFrame?
+    private(set) var latestImageSize: CGSize = .zero
     private(set) var formIssue: FormIssue?
     private(set) var poseVisible = false
     private(set) var cameraDenied = false
@@ -31,8 +32,32 @@ final class ChallengeModel {
     private var goodFrameStreak = 0
     private var consumeTask: Task<Void, Never>?
 
-    /// The live capture session, for the SwiftUI preview layer.
-    var captureSession: AVCaptureSession { pipeline.session }
+    /// The configured preview layer (orientation/mirroring already applied).
+    var previewLayer: AVCaptureVideoPreviewLayer { pipeline.previewLayer }
+
+    /// Diagnostic string for the on-screen debug readout while tuning detection.
+    var debugReadout: String {
+        let n = latestFrame?.joints.count ?? 0
+        let conf = meanConfidence
+        return "joints \(n) · conf \(String(format: "%.2f", conf)) · \(phaseText)"
+    }
+
+    private var meanConfidence: Double {
+        guard let joints = latestFrame?.joints.values, !joints.isEmpty else { return 0 }
+        return joints.map(\.confidence).reduce(0, +) / Double(joints.count)
+    }
+
+    private var phaseText: String {
+        switch state {
+        case .idle: return "idle"
+        case .initializingCamera: return "init"
+        case .detectingUser: return "detecting"
+        case .counting: return "counting"
+        case .escapeOffered: return "escape"
+        case .completed: return "done"
+        case .abandoned: return "abandoned"
+        }
+    }
 
     init(target: Int, strictness: Strictness, minConfidence: Double = 0.5) {
         self.target = target
@@ -49,6 +74,7 @@ final class ChallengeModel {
             cameraDenied = true
             return
         }
+        pipeline.attachPreview(position: .front)
         pipeline.configure(position: .front)
         pipeline.start()
         machine.handle(.cameraReady)
@@ -78,15 +104,17 @@ final class ChallengeModel {
     private func consume() {
         consumeTask = Task { [weak self] in
             guard let self else { return }
-            for await frame in pipeline.frames {
+            for await sample in pipeline.frames {
                 if Task.isCancelled { break }
-                process(frame)
+                process(sample)
             }
         }
     }
 
-    private func process(_ frame: PoseFrame) {
+    private func process(_ sample: PoseSample) {
+        let frame = sample.frame
         latestFrame = frame
+        latestImageSize = sample.imageSize
         formIssue = formEvaluator.evaluate(frame).issue
 
         let update = repCounter.process(frame)

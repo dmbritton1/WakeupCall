@@ -25,14 +25,15 @@ struct ChallengeView: View {
             if model.cameraDenied {
                 cameraDeniedView
             } else {
-                CameraPreview(session: model.captureSession)
+                CameraPreview(previewLayer: model.previewLayer)
                     .ignoresSafeArea()
-                SkeletonOverlay(frame: model.latestFrame)
+                SkeletonOverlay(frame: model.latestFrame, imageSize: model.latestImageSize)
                     .ignoresSafeArea()
             }
 
             VStack {
                 repHUD
+                debugReadout
                 Spacer()
                 statusBanner
             }
@@ -62,6 +63,15 @@ struct ChallengeView: View {
         }
         .padding()
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
+    }
+
+    // Temporary diagnostic while tuning pose detection. Remove once dialed in.
+    private var debugReadout: some View {
+        Text(model.debugReadout)
+            .font(.caption2.monospaced())
+            .padding(.horizontal, 8).padding(.vertical, 4)
+            .background(.black.opacity(0.5), in: Capsule())
+            .foregroundStyle(.white)
     }
 
     @ViewBuilder private var statusBanner: some View {

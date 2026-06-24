@@ -3,24 +3,37 @@ import AVFoundation
 import Vision
 import ChallengeCore
 
-/// Owns the camera and Vision inference. Frames flow out as an `AsyncStream` of
-/// pure `PoseFrame`s for the `ChallengeModel` to consume off the main actor
-/// (plan §5).
+/// One detected pose plus the size of the (upright) image it came from, so the
+/// overlay can map normalized joints onto the screen correctly.
+struct PoseSample: Sendable {
+    let frame: PoseFrame
+    let imageSize: CGSize
+}
+
+/// Owns the camera, the preview layer, and Vision inference (plan §5).
 ///
-/// Concurrency design: the capture delegate (called serially on `sessionQueue`)
-/// only hands pixel buffers to a `bufferingNewest(1)` stream. A single consumer
-/// task runs Vision one frame at a time and drops anything that piles up behind
-/// it — this gives the ~10–15 fps throttle naturally, with no shared mutable
-/// state shared across executors (plan §5.3).
+/// Orientation (the thing that made detection "egregious" before): the camera
+/// delivers a landscape sensor buffer for a portrait-held phone. We rotate BOTH
+/// the data-output connection and the preview connection to upright (and mirror
+/// the front camera on both) so they share one coordinate space. Vision then
+/// analyzes an upright image (good detection) and we pass `.up`. The overlay
+/// maps joints with `ViewportMapper`.
+///
+/// Concurrency: the capture delegate (serial on `sessionQueue`) only hands
+/// buffers to a `bufferingNewest(1)` stream; a single consumer task runs Vision
+/// one frame at a time, dropping anything that piles up — the ~10–15 fps
+/// throttle, with no shared mutable state across executors.
 final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, @unchecked Sendable {
+    /// Clockwise rotation to upright for a portrait-locked app. If the camera
+    /// ever appears upside-down, change to 270.
+    private static let portraitRotationAngle: CGFloat = 90
+
     let session = AVCaptureSession()
+    let previewLayer = AVCaptureVideoPreviewLayer()
 
-    /// Stream of detected poses. Consume with `for await frame in pipeline.frames`.
-    let frames: AsyncStream<PoseFrame>
-    private let framesContinuation: AsyncStream<PoseFrame>.Continuation
+    let frames: AsyncStream<PoseSample>
+    private let framesContinuation: AsyncStream<PoseSample>.Continuation
 
-    /// Inbound camera frames, keeping only the newest so stale frames are
-    /// dropped while Vision is busy.
     private let buffers: AsyncStream<TimedBuffer>
     private let buffersContinuation: AsyncStream<TimedBuffer>.Continuation
 
@@ -28,17 +41,17 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
     private let sessionQueue = DispatchQueue(label: "com.wakeupcall.pushupalarm.camera")
     private let videoOutput = AVCaptureVideoDataOutput()
     private var processingTask: Task<Void, Never>?
+    private var cameraPosition: AVCaptureDevice.Position = .front
     private let startTime = Date()
 
-    /// Carries a non-Sendable pixel buffer to the consumer task. Safe because
-    /// exactly one consumer reads it and we never mutate the buffer.
     private struct TimedBuffer: @unchecked Sendable {
         let pixelBuffer: CVPixelBuffer
         let timestamp: TimeInterval
+        let imageSize: CGSize
     }
 
     override init() {
-        var framesCont: AsyncStream<PoseFrame>.Continuation!
+        var framesCont: AsyncStream<PoseSample>.Continuation!
         frames = AsyncStream { framesCont = $0 }
         framesContinuation = framesCont
 
@@ -49,8 +62,16 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
         super.init()
     }
 
-    /// Configure for the given camera position (front recommended in the dark —
-    /// the screen acts as fill light, plan §5.3).
+    /// Attach the preview layer (main actor — it's a UI object). Call before
+    /// `configure`/`start`.
+    @MainActor
+    func attachPreview(position: AVCaptureDevice.Position) {
+        cameraPosition = position
+        previewLayer.session = session
+        previewLayer.videoGravity = .resizeAspectFill
+        applyOrientation(to: previewLayer.connection, position: position)
+    }
+
     func configure(position: AVCaptureDevice.Position = .front) {
         sessionQueue.async { [weak self] in
             guard let self else { return }
@@ -71,6 +92,7 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
             if session.canAddOutput(videoOutput) {
                 session.addOutput(videoOutput)
             }
+            applyOrientation(to: videoOutput.connection(with: .video), position: position)
             session.commitConfiguration()
         }
     }
@@ -97,8 +119,13 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        // Buffer is already rotated to upright by the connection, so these dims
+        // are the upright (portrait) dimensions the overlay needs.
+        let size = CGSize(width: CVPixelBufferGetWidth(pixelBuffer),
+                          height: CVPixelBufferGetHeight(pixelBuffer))
         buffersContinuation.yield(TimedBuffer(pixelBuffer: pixelBuffer,
-                                              timestamp: Date().timeIntervalSince(startTime)))
+                                              timestamp: Date().timeIntervalSince(startTime),
+                                              imageSize: size))
     }
 
     // MARK: - Inference loop
@@ -107,9 +134,25 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
         processingTask = Task { [request, buffers, framesContinuation] in
             for await item in buffers {
                 if Task.isCancelled { break }
-                guard let observation = try? await request.perform(on: item.pixelBuffer).first else { continue }
-                framesContinuation.yield(PoseMapping.poseFrame(from: observation, timestamp: item.timestamp))
+                // .up because the connection already delivered an upright buffer.
+                guard let observation = try? await request.perform(on: item.pixelBuffer, orientation: .up).first
+                else { continue }
+                let frame = PoseMapping.poseFrame(from: observation, timestamp: item.timestamp)
+                framesContinuation.yield(PoseSample(frame: frame, imageSize: item.imageSize))
             }
+        }
+    }
+
+    // MARK: - Orientation
+
+    private func applyOrientation(to connection: AVCaptureConnection?, position: AVCaptureDevice.Position) {
+        guard let connection else { return }
+        if connection.isVideoRotationAngleSupported(Self.portraitRotationAngle) {
+            connection.videoRotationAngle = Self.portraitRotationAngle
+        }
+        if connection.isVideoMirroringSupported {
+            connection.automaticallyAdjustsVideoMirroring = false
+            connection.isVideoMirrored = (position == .front)
         }
     }
 }

@@ -1,14 +1,16 @@
 import SwiftUI
 import ChallengeCore
 
-/// Draws the detected joints + bones over the camera feed. Input joints are
-/// normalized with a lower-left origin (Vision), so we flip y into SwiftUI's
-/// top-left space.
+/// Draws the detected joints + bones over the camera feed. Joints come in
+/// Vision's normalized, bottom-left space; `ViewportMapper` maps them through the
+/// same aspect-fill transform the preview uses so the skeleton lands on the body
+/// rather than drifting.
 struct SkeletonOverlay: View {
     let frame: PoseFrame?
+    /// Size of the upright camera image the joints were detected in.
+    let imageSize: CGSize
     var minConfidence: Double = 0.3
 
-    /// Bones to connect, as joint pairs.
     private static let bones: [(ChallengeCore.Joint, ChallengeCore.Joint)] = [
         (.leftShoulder, .rightShoulder),
         (.leftShoulder, .leftElbow), (.leftElbow, .leftWrist),
@@ -45,7 +47,12 @@ struct SkeletonOverlay: View {
     }
 
     private func point(_ joint: ChallengeCore.Joint, in frame: PoseFrame, size: CGSize) -> CGPoint? {
-        guard let p = frame.point(joint, minConfidence: minConfidence) else { return nil }
-        return CGPoint(x: p.x * size.width, y: (1 - p.y) * size.height)
+        guard imageSize.width > 0, imageSize.height > 0,
+              let p = frame.point(joint, minConfidence: minConfidence) else { return nil }
+        let mapped = ViewportMapper.aspectFill(
+            nx: p.x, ny: p.y,
+            imageW: imageSize.width, imageH: imageSize.height,
+            viewW: size.width, viewH: size.height)
+        return CGPoint(x: mapped.x, y: mapped.y)
     }
 }

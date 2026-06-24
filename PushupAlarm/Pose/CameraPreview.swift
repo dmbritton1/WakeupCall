@@ -1,24 +1,35 @@
 import SwiftUI
 import AVFoundation
 
-/// SwiftUI wrapper around `AVCaptureVideoPreviewLayer` showing the live feed.
-/// The skeleton overlay is drawn separately on top in `ChallengeView`.
+/// Hosts the pipeline-owned `AVCaptureVideoPreviewLayer` (which already has its
+/// orientation/mirroring configured). The skeleton overlay is drawn on top in
+/// `ChallengeView`, in the same coordinate space.
 struct CameraPreview: UIViewRepresentable {
-    let session: AVCaptureSession
+    let previewLayer: AVCaptureVideoPreviewLayer
 
-    func makeUIView(context: Context) -> PreviewView {
-        let view = PreviewView()
-        view.videoPreviewLayer.session = session
-        view.videoPreviewLayer.videoGravity = .resizeAspectFill
+    func makeUIView(context: Context) -> PreviewHostView {
+        let view = PreviewHostView()
+        view.attach(previewLayer)
         return view
     }
 
-    func updateUIView(_ uiView: PreviewView, context: Context) {}
+    func updateUIView(_ uiView: PreviewHostView, context: Context) {}
 
-    final class PreviewView: UIView {
-        override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
-        var videoPreviewLayer: AVCaptureVideoPreviewLayer {
-            layer as! AVCaptureVideoPreviewLayer
+    final class PreviewHostView: UIView {
+        private weak var preview: AVCaptureVideoPreviewLayer?
+
+        func attach(_ layer: AVCaptureVideoPreviewLayer) {
+            preview = layer
+            layer.frame = bounds
+            self.layer.addSublayer(layer)
+        }
+
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)   // no implicit resize animation
+            preview?.frame = bounds
+            CATransaction.commit()
         }
     }
 }

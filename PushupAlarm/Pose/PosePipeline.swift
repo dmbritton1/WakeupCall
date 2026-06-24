@@ -5,28 +5,47 @@ import ChallengeCore
 
 /// Owns the camera and Vision inference. Frames flow out as an `AsyncStream` of
 /// pure `PoseFrame`s for the `ChallengeModel` to consume off the main actor
-/// (plan §5). Inference is throttled with an `isProcessing` guard so we run
-/// ~10–15 fps regardless of camera frame rate — plenty for slow pushups, easy
-/// on battery/heat.
+/// (plan §5).
+///
+/// Concurrency design: the capture delegate (called serially on `sessionQueue`)
+/// only hands pixel buffers to a `bufferingNewest(1)` stream. A single consumer
+/// task runs Vision one frame at a time and drops anything that piles up behind
+/// it — this gives the ~10–15 fps throttle naturally, with no shared mutable
+/// state shared across executors (plan §5.3).
 final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, @unchecked Sendable {
     let session = AVCaptureSession()
 
     /// Stream of detected poses. Consume with `for await frame in pipeline.frames`.
     let frames: AsyncStream<PoseFrame>
-    private let continuation: AsyncStream<PoseFrame>.Continuation
+    private let framesContinuation: AsyncStream<PoseFrame>.Continuation
+
+    /// Inbound camera frames, keeping only the newest so stale frames are
+    /// dropped while Vision is busy.
+    private let buffers: AsyncStream<TimedBuffer>
+    private let buffersContinuation: AsyncStream<TimedBuffer>.Continuation
 
     private let request = DetectHumanBodyPoseRequest()
     private let sessionQueue = DispatchQueue(label: "com.wakeupcall.pushupalarm.camera")
     private let videoOutput = AVCaptureVideoDataOutput()
-
-    /// Skip frames while one is in flight — the throttle.
-    private var isProcessing = false
+    private var processingTask: Task<Void, Never>?
     private let startTime = Date()
 
+    /// Carries a non-Sendable pixel buffer to the consumer task. Safe because
+    /// exactly one consumer reads it and we never mutate the buffer.
+    private struct TimedBuffer: @unchecked Sendable {
+        let pixelBuffer: CVPixelBuffer
+        let timestamp: TimeInterval
+    }
+
     override init() {
-        var cont: AsyncStream<PoseFrame>.Continuation!
-        frames = AsyncStream { cont = $0 }
-        continuation = cont
+        var framesCont: AsyncStream<PoseFrame>.Continuation!
+        frames = AsyncStream { framesCont = $0 }
+        framesContinuation = framesCont
+
+        var buffersCont: AsyncStream<TimedBuffer>.Continuation!
+        buffers = AsyncStream(TimedBuffer.self, bufferingPolicy: .bufferingNewest(1)) { buffersCont = $0 }
+        buffersContinuation = buffersCont
+
         super.init()
     }
 
@@ -57,6 +76,7 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
     }
 
     func start() {
+        startProcessing()
         sessionQueue.async { [weak self] in
             guard let self, !session.isRunning else { return }
             session.startRunning()
@@ -68,22 +88,28 @@ final class PosePipeline: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate
             guard let self, session.isRunning else { return }
             session.stopRunning()
         }
-        continuation.finish()
+        processingTask?.cancel()
+        buffersContinuation.finish()
+        framesContinuation.finish()
     }
 
     func captureOutput(_ output: AVCaptureOutput,
                        didOutput sampleBuffer: CMSampleBuffer,
                        from connection: AVCaptureConnection) {
-        guard !isProcessing,
-              let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        isProcessing = true
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        buffersContinuation.yield(TimedBuffer(pixelBuffer: pixelBuffer,
+                                              timestamp: Date().timeIntervalSince(startTime)))
+    }
 
-        let timestamp = Date().timeIntervalSince(startTime)
-        Task { [weak self] in
-            guard let self else { return }
-            defer { isProcessing = false }
-            guard let observation = try? await request.perform(on: pixelBuffer).first else { return }
-            continuation.yield(PoseMapping.poseFrame(from: observation, timestamp: timestamp))
+    // MARK: - Inference loop
+
+    private func startProcessing() {
+        processingTask = Task { [request, buffers, framesContinuation] in
+            for await item in buffers {
+                if Task.isCancelled { break }
+                guard let observation = try? await request.perform(on: item.pixelBuffer).first else { continue }
+                framesContinuation.yield(PoseMapping.poseFrame(from: observation, timestamp: item.timestamp))
+            }
         }
     }
 }
